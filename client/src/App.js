@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Container, Row } from 'react-bootstrap';
+import { Button, Container, TextField, Grid } from '@mui/material';
 import { fetchData, insertData, deleteData, updateData } from './Api';
 import CardComponent from './CardComponent';
 
@@ -65,19 +65,19 @@ class App extends Component {
     return (
       <div className='App'>
         <div className='form'>
-          <input name='setBookName' placeholder='Enter Book Name' onChange={this.handleChange} />
-          <input name='setReview' placeholder='Enter Review!!' onChange={this.handleChange} />
+          <TextField name='setBookName' label='Enter Book Name' onChange={this.handleChange} />
+          <TextField name='setReview' label='Enter Review!!' onChange={this.handleChange} />
         </div>
-        <Button className='my-2' variant="primary" onClick={this.submit}>Submit</Button> <br /><br />
+        <Button className='my-2' variant="contained" onClick={this.submit}>Submit</Button> <br /><br />
         <Container>
-          <Row>
+          <Grid container spacing={2}>
             <CardComponent
               data={this.state.fetchData}
               handleChange2={this.handleChange2}
               edit={this.edit}
               remove={this.remove}
             />
-          </Row>
+          </Grid>
         </Container>
       </div>
     );

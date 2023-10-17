@@ -13,7 +13,7 @@ const CardComponent = ({ data, handleChange2, edit, remove }) => {
           <Button onClick={() => remove(val.id)}>Delete</Button>
         </Card.Body>
       </Card>
-      <h1>töis mutten duunis!</h1>
+      <h1>töis mutten duunissa</h1>
     </React.Fragment>
   ));
 };

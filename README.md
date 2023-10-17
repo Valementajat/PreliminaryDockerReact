@@ -4,12 +4,15 @@
 - Docker Desktop
 - Git
 - VS Code
+- Node.js
 
 ## Steps
 1. **Download and Install Required Software:**
     - [Docker Desktop](https://www.docker.com/products/docker-desktop)
     - [Git](https://git-scm.com/)
     - [VS Code](https://code.visualstudio.com/)
+    - [Node.js](https://nodejs.org/)
+
 
 2. **Clone the Repository:**
     ```
