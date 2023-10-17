@@ -51,10 +51,10 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
-     
     build:
       dockerfile: Dockerfile
       context: ./client
+    mem_limit: 3g
     volumes:
       - /app/node_modules
       - ./client:/app

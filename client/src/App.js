@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
-import { Button, Container, Card, Row } from 'react-bootstrap';
+import { Button, Container, Row } from 'react-bootstrap';
+import { fetchData, insertData, deleteData, updateData } from './Api';
+import CardComponent from './CardComponent';
 
 class App extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class App extends Component {
       setBookName: '',
       setReview: '',
       fetchData: [],
-      reviewUpdate: ''
+      reviewUpdate: '',
     };
   }
 
@@ -18,27 +19,27 @@ class App extends Component {
     let nam = event.target.name;
     let val = event.target.value;
     this.setState({
-      [nam]: val
+      [nam]: val,
     });
-  }
+  };
 
   handleChange2 = (event) => {
     this.setState({
-      reviewUpdate: event.target.value
+      reviewUpdate: event.target.value,
     });
-  }
+  };
 
   componentDidMount() {
-    axios.get("/api/get")
+    fetchData()
       .then((response) => {
         this.setState({
-          fetchData: response.data
+          fetchData: response.data,
         });
       });
   }
 
   submit = () => {
-    axios.post('/api/insert', this.state)
+    insertData(this.state)
       .then(() => { alert('success post') });
     console.log(this.state);
     document.location.reload();
@@ -46,53 +47,36 @@ class App extends Component {
 
   remove = (id) => {
     if (window.confirm("Do you want to delete? ")) {
-      axios.delete(`/api/delete/${id}`);
+      deleteData(id);
       document.location.reload();
     }
   }
 
   edit = (id) => {
-    axios.put(`/api/update/${id}`, this.state);
+    updateData(id, this.state);
     document.location.reload();
   }
 
   render() {
     if (!Array.isArray(this.state.fetchData)) {
-      return <div>Loading...</div>; // Add a loading state if the data is not an array yet
-    }
-    let card = this.state.fetchData.map((val, key) => {
-      return (
-        <React.Fragment key={key}>
-          <Card style={{ width: '18rem' }} className='m-2'>
-            <Card.Body>
-              <Card.Title>{val.book_name}</Card.Title>
-              <Card.Text>
-                {val.book_review}
-              </Card.Text>
-              <input name='reviewUpdate' onChange={this.handleChange2} placeholder='Update Review' ></input>
-              <Button className='m-2' onClick={() => { this.edit(val.id) }}>Update</Button>
-              <Button onClick={() => { this.remove(val.id) }}>Delete</Button>
-            </Card.Body>
-          </Card>
-          <h1>töis mutten duunissa!!! !</h1>
-        </React.Fragment>
-      );
-    });
-  
-    if (!Array.isArray(this.state.fetchData)) {
-      return <div>Loading...</div>; // Add a loading state if the data is not an array yet
+      return <div>Loading...</div>;
     }
 
     return (
       <div className='App'>
         <div className='form'>
           <input name='setBookName' placeholder='Enter Book Name' onChange={this.handleChange} />
-          <input name='setReview' placeholder='Enter Review' onChange={this.handleChange} />
+          <input name='setReview' placeholder='Enter Review!!' onChange={this.handleChange} />
         </div>
         <Button className='my-2' variant="primary" onClick={this.submit}>Submit</Button> <br /><br />
         <Container>
           <Row>
-            {card}
+            <CardComponent
+              data={this.state.fetchData}
+              handleChange2={this.handleChange2}
+              edit={this.edit}
+              remove={this.remove}
+            />
           </Row>
         </Container>
       </div>
