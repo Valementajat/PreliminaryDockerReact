@@ -9,6 +9,11 @@
 ## Steps
 1. **Download and Install Required Software:**
     - [Docker Desktop](https://www.docker.com/products/docker-desktop)
+        - After installation, you may encounter a "Docker failed to initialize" error. Use a terminal to kill the Docker process and restart
+        - You need to install wsl. Use CMD like Windows powershell to run:
+        ```
+        wsl --update
+        ```
     - [Git](https://git-scm.com/)
     - [VS Code](https://code.visualstudio.com/)
     - [Node.js](https://nodejs.org/)
